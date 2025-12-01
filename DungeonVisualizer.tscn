@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3vwrr5wpq41m"]
+
+[ext_resource type="Script" uid="uid://b2hn6fndx3kpj" path="res://dungeon_visualizer.gd" id="1_6hxh2"]
+[ext_resource type="Script" uid="uid://cls33vcod0qiv" path="res://drunkards_walk/drunkards_walk_generator.gd" id="2_uq3kv"]
+[ext_resource type="PackedScene" uid="uid://d04ha1g8apmif" path="res://cellular_automata/CellularAutomataGenerator.tscn" id="3_3p8yg"]
+
+[node name="DungeonVisulaizer" type="Node2D" node_paths=PackedStringArray("dungeon_generator")]
+texture_filter = 1
+script = ExtResource("1_6hxh2")
+map_size = Vector2i(80, 45)
+dungeon_generator = NodePath("DrunkardsWalkGenerator")
+input_mode = false
+
+[node name="DrunkardsWalkGenerator" type="Node" parent="."]
+script = ExtResource("2_uq3kv")
+spawn_count = 10
+minimum_steps = 1000
+
+[node name="CellularAutomataGenerator" parent="." instance=ExtResource("3_3p8yg")]
+min_propagation_count = 4
+max_propagation_count = 8
+iteration_count = 10
+
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="new_position_carved" from="DrunkardsWalkGenerator" to="." method="_on_drunkards_walk_generator_new_position_carved"]
+[connection signal="generation_done" from="CellularAutomataGenerator" to="." method="_on_cellular_automata_generator_generation_done"]
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

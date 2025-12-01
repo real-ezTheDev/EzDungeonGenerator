@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d04ha1g8apmif"]
+
+[ext_resource type="Script" uid="uid://bkbjfx7v5ht13" path="res://cellular_automata/cellular_automata_generator.gd" id="1_xxpgc"]
+
+[node name="CellularAutomataGenerator" type="Node"]
+script = ExtResource("1_xxpgc")

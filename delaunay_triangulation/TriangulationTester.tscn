@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsk0ku3l3shxh"]
+
+[ext_resource type="Script" uid="uid://cuqexhvcjdy3c" path="res://delaunay_triangulation/triangulation_tester.gd" id="1_mgocy"]
+[ext_resource type="PackedScene" uid="uid://bxh3xoidmvwhi" path="res://delaunay_triangulation/DelaunayTriangulation.tscn" id="2_i48m6"]
+
+[node name="TriangulationTester" type="Node2D"]
+script = ExtResource("1_mgocy")
+
+[node name="DelaunayTriangulation" parent="." instance=ExtResource("2_i48m6")]
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Generate"
+
+[connection signal="circle_drawn" from="DelaunayTriangulation" to="." method="_on_delaunay_triangulation_circle_drawn"]
+[connection signal="new_triangles_drawn" from="DelaunayTriangulation" to="." method="_on_delaunay_triangulation_new_triangles_drawn"]
+[connection signal="point_added" from="DelaunayTriangulation" to="." method="_on_delaunay_triangulation_point_added"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
